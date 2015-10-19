@@ -2,16 +2,12 @@
 ================
 
 v2.0
-fixed play, code based on HexPang, thx
+fixed play, code based on HexPang@github.com/HexPang/DouyuLiveForXBMC, thanks
 
 
 
 
-截图
-----------------
-![img](https://github.com/HexPang/DouyuLiveForXBMC/raw/master/Screenshot/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202014-08-31%2015.48.30.png "截图01")
-
-![img](https://github.com/HexPang/DouyuLiveForXBMC/raw/master/Screenshot/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202014-08-31%2015.48.06.png "截图02")
+old version:
 
 说明
 ----------------
