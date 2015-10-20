@@ -1,6 +1,9 @@
 斗鱼直播 for XBMC
 ================
 
+v2.1
+add list room by online, and remove unused code
+
 v2.0
 fixed play, code based on HexPang@github.com/HexPang/DouyuLiveForXBMC, thanks
 
