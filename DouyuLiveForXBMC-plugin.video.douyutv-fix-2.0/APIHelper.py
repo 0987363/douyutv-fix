@@ -12,6 +12,7 @@ class APIHelper:
     def request(self, action, param=None):
         reqUrl = self.baseUrl + "/" + action
         reqUrl = reqUrl + "?" + "client_sys=" + self.client_sys
+        #print "requrl:" + reqUrl
         if param != None:
             for k, v in enumerate(param):
                 reqUrl = reqUrl + "&" + v + "=" + param[v]

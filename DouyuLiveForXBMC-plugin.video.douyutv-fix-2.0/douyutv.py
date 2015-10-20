@@ -46,10 +46,13 @@ elif action[0] == "category":
             data = api.loadLive(o)
         else:
             data = api.loadRooms(cateId[0], o)
-        for game in data:
+
+        data2 = sorted(data, key=lambda k: k['online'], reverse=True)
+
+        for game in data2:
+            #print "online:" + str(game["online"])
             url = build_url({"action": "play", "room_id": game["room_id"]})
-            listitem = xbmcgui.ListItem(label=urllib.unquote(game["room_name"]), iconImage=game["room_src"],
-                                        thumbnailImage=game["room_src"], path=url)
+            listitem = xbmcgui.ListItem(label = urllib.unquote(game["game_name"]) + " - " + urllib.unquote(game["room_name"]), iconImage=game["room_src"], thumbnailImage=game["room_src"], path=url)
             xbmcplugin.addDirectoryItem(handle, url, listitem)
         url = build_url({"action": "category", "cateId": cateId[0], "offset": int(o + limit)})
         listitem = xbmcgui.ListItem(label="下一页", path=url)
@@ -63,7 +66,7 @@ elif action[0] == "play":
     data = api.loadRoom(roomId[0])  # helper.request("room/" + roomId[0])
     rtmp_url = data["rtmp_url"]
     rtmp_live = data["rtmp_live"]
-  #  rtmp_live = data["rtmp_multi_bitrate"]["middle2"]
+    #rtmp_live = data["rtmp_multi_bitrate"]["middle2"]
     videoUrl = rtmp_url + "/" + rtmp_live
     #print "item:", videoUrl
 
@@ -72,5 +75,6 @@ elif action[0] == "play":
     item.setProperty("PlayPath", videoUrl)
     item.setInfo("video", {'title': urllib.unquote(data["room_name"]), 'writer': data["nickname"]})
     player = xbmc.Player(xbmc.PLAYER_CORE_DVDPLAYER).play(videoUrl, item)
+
 
 
