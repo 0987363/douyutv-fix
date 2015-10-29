@@ -27,11 +27,13 @@ def onControl(self, control):
 
 if action is None:
     url = build_url({"action": "category", "cateId": "0"})
+    print "url:" + url
     listitem = xbmcgui.ListItem(" => 正在直播 <=")
     xbmcplugin.addDirectoryItem(handle, url, listitem, isFolder=True)
     data = api.loadCategory()
     for game in data:
         url = build_url({"action": "category", "cateId": game["cate_id"]})
+        print "url:" + url
         listitem = xbmcgui.ListItem(label=game["game_name"], iconImage=game["game_src"],
                                     thumbnailImage=game["game_src"], path=url)
         xbmcplugin.addDirectoryItem(handle, url, listitem, isFolder=True)

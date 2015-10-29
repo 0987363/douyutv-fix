@@ -26,6 +26,7 @@ class APIHelper:
         return None
 
     def request2(self, reqUrl, param=None):
+        print "requrl:" + reqUrl
         if param != None:
             for k, v in enumerate(param):
                 reqUrl = reqUrl + "&" + v + "=" + param[v]

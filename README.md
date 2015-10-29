@@ -2,7 +2,7 @@
 ================
 
 v2.2
-fixed play
+fixed play, 2015.10.29
 
 v2.1
 add list room by online, and remove unused code
