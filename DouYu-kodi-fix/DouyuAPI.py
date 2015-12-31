@@ -13,7 +13,7 @@ class DouyuAPI(APIHelper.APIHelper):
         print "start load category"
         return self.request("game")
 
-    def loadRooms(self, cateId, offset=0, limit=20):
+    def loadRooms(self, cateId, offset=0, limit=12):
         print "start load rooms"
         return self.request("live/" + cateId, {"offset": str(offset), "limit": str(limit)})
 
@@ -21,7 +21,7 @@ class DouyuAPI(APIHelper.APIHelper):
         print "start load rom"
         return self.request("room/" + roomId)
 
-    def loadLive(self,offset=0,limit=20):
+    def loadLive(self,offset=0,limit=12):
         print "start load live"
         return self.request("live", {"offset": str(offset), "limit": str(limit)})
 

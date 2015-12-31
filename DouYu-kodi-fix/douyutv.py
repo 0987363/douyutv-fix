@@ -40,7 +40,7 @@ if action is None:
     xbmcplugin.endOfDirectory(handle)
 elif action[0] == "category":
     cateId = args.get('cateId', "0")
-    limit = 20
+    limit = 12
     offset = args.get('offset', "0")
     o = int(offset[0], 0)
     try:
