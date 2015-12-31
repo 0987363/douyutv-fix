@@ -21,7 +21,11 @@ class APIHelper:
         t = str(int(time.time()))
         md5_url = action + self.midReq + t + "1231"
         auth = self.GetStringMD5(md5_url)
+
         reqUrl = self.baseUrl + action + self.midReq + t + "&auth=" + self.GetStringMD5(md5_url)
+        if param != None:
+            for k, v in enumerate(param):
+                reqUrl = reqUrl + "&" + v + "=" + param[v]
         print "requrl:" + reqUrl
 
         try:

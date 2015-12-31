@@ -1,6 +1,9 @@
 斗鱼直播 for XBMC
 ================
 
+v2.4
+fixed some bug
+
 v2.3
 fixed some bug
 
