@@ -13,15 +13,20 @@ class DouyuAPI(APIHelper.APIHelper):
         print "start load category"
         return self.request("getColumnList")
 
-    def loadSubLive(self, cateId, offset=0, limit=12):
-        print "start load sub channel live"
-        return self.request("live/" + cateId, {"offset": str(offset), "limit": str(limit)})
-
-    def loadSubCategory(self, subId):
+    def loadSubCategory(self, shortName):
         print "start load sub category"
-        return self.request("getColumnDetail" + {"shortName": subId})
+        return self.request("getColumnDetail", {"shortName": shortName})
+
+    def loadSecendLive(self, tagId, offset=0, limit=12):
+        print "start load second channel live"
+        return self.request("live/" + tagId, {"offset": str(offset), "limit": str(limit)})
+
+    def loadFirstLive(self, cateId, offset=0, limit=12):
+        print "start load first channel live"
+        return self.request("getColumnRoom/" + cateId, {"offset": str(offset), "limit": str(limit)})
 
     def loadLive(self,offset=0,limit=12):
         print "start load all live"
         return self.request("live", {"offset": str(offset), "limit": str(limit)})
+
 
