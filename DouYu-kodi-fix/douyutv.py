@@ -7,6 +7,7 @@ import DouyuAPI
 import xbmcplugin
 import xbmcgui
 import urlparse
+#import realurl
 
 base_url = sys.argv[0]
 handle = int(sys.argv[1])
@@ -65,18 +66,17 @@ elif action[0] == "category":
         xbmcgui.Dialog().ok("ERROR", str(e[0]))
 elif action[0] == "play":
     roomId = args.get('room_id', "0")
+#    videoUrl = realurl.get_real_url(roomId)
+
     data = api.loadRoom(roomId[0])  # helper.request("room/" + roomId[0])
     rtmp_url = data["rtmp_url"]
     rtmp_live = data["rtmp_live"]
-    #rtmp_live = data["rtmp_multi_bitrate"]["middle2"]
     videoUrl = rtmp_url + "/" + rtmp_live
     #print "item:", videoUrl
 
     item = xbmcgui.ListItem("Test")
-    item.setProperty("SWFPlayer", "http://staticlive.douyutv.com/common/simplayer/WebRoom.swf?v=3134.4")
-    item.setProperty("PlayPath", videoUrl)
-    item.setInfo("video", {'title': urllib.unquote(data["room_name"]), 'writer': data["nickname"]})
-    player = xbmc.Player(xbmc.PLAYER_CORE_DVDPLAYER).play(videoUrl, item)
-
-
+#    item.setProperty("SWFPlayer", "http://staticlive.douyutv.com/common/simplayer/WebRoom.swf?v=3134.4")
+#    item.setProperty("PlayPath", videoUrl)
+#    item.setInfo("video", {'title': urllib.unquote(data["room_name"]), 'writer': data["nickname"]})
+    player = xbmc.Player(xbmc.PLAYER_CORE_DVDPLAYER).play(videoUrl + "11223344", item)
 
