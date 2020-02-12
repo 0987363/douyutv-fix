@@ -3,9 +3,10 @@
 
 ##### install:
 ```
-1.install requests
+1.download requests, and install it
 http://mirrors.kodi.tv/addons/leia/script.module.requests/
-2.install douyutv-fix-v3.0.zip
+2.download douyutv-fix-v3.0.zip, and install it
+https://github.com/0987363/douyutv-fix/releases     (download *.zip)
 ```
 
 v3.0
