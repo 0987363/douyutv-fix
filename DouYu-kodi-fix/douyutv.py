@@ -6,15 +6,16 @@ import urllib
 import DouyuAPI
 import xbmcplugin
 import xbmcgui
+import xbmc
 import urlparse
-#import realurl
+import realurl
 
 base_url = sys.argv[0]
 handle = int(sys.argv[1])
 args = urlparse.parse_qs(sys.argv[2][1:])
 api = DouyuAPI.DouyuAPI()
-action = args.get('action', None)
 
+action = args.get('action', None)
 
 def build_url(query):
     return base_url + '?' + urllib.urlencode(query)
@@ -27,19 +28,50 @@ def onControl(self, control):
 
 
 if action is None:
-    url = build_url({"action": "category", "cateId": "0"})
+    url = build_url({"action": "live", "cateId": "0"})
     print "url:" + url
     listitem = xbmcgui.ListItem(" => 正在直播 <=")
     xbmcplugin.addDirectoryItem(handle, url, listitem, isFolder=True)
+
     data = api.loadCategory()
     for game in data:
-        url = build_url({"action": "category", "cateId": game["cate_id"]})
+        url = build_url({"action": "category", "cateId": game["short_name"]})
         print "url:" + url
-        listitem = xbmcgui.ListItem(label=game["game_name"], iconImage=game["game_src"],
-                                    thumbnailImage=game["game_src"], path=url)
+        listitem = xbmcgui.ListItem(label=game["cate_name"],path=url)
         xbmcplugin.addDirectoryItem(handle, url, listitem, isFolder=True)
     xbmcplugin.endOfDirectory(handle)
-elif action[0] == "category":
+    exit(0)
+
+if action[0] == "live":
+    cateId = args.get('cateId', "0")
+    limit = 12
+    offset = args.get('offset', "0")
+    o = int(offset[0], 0)
+
+    xbmc.log('cat id: %s' % cateId,  xbmc.LOGDEBUG)
+
+    if cateId[0] == "0": 
+        data = api.loadLive(o)
+    else:
+        data = api.loadSubLive(o)
+
+        
+    data2 = sorted(data, key=lambda k: k['online'], reverse=True)
+
+    for game in data2:
+        url = build_url({"action": "play", "room_id": game["room_id"]})
+        listitem = xbmcgui.ListItem(label = urllib.unquote(game["game_name"]) + " - " + urllib.unquote(game["room_name"]), iconImage=game["room_src"], thumbnailImage=game["room_src"], path=url)
+        xbmcplugin.addDirectoryItem(handle, url, listitem)
+
+    url = build_url({"action": "live", "cateId": cateId[0], "offset": int(o + limit)})
+    listitem = xbmcgui.ListItem(label="下一页", path=url)
+    xbmcplugin.addDirectoryItem(handle, url, listitem, isFolder=True)
+    xbmcplugin.endOfDirectory(handle)
+    exit(0)
+
+
+
+if action[0] == "category":
     cateId = args.get('cateId', "0")
     limit = 12
     offset = args.get('offset', "0")
@@ -61,17 +93,19 @@ elif action[0] == "category":
         listitem = xbmcgui.ListItem(label="下一页", path=url)
         xbmcplugin.addDirectoryItem(handle, url, listitem, isFolder=True)
         xbmcplugin.endOfDirectory(handle)
+        exit(0)
 
     except Exception as e:
         xbmcgui.Dialog().ok("ERROR", str(e[0]))
-elif action[0] == "play":
-    roomId = args.get('room_id', "0")
-#    videoUrl = realurl.get_real_url(roomId)
 
-    data = api.loadRoom(roomId[0])  # helper.request("room/" + roomId[0])
-    rtmp_url = data["rtmp_url"]
-    rtmp_live = data["rtmp_live"]
-    videoUrl = rtmp_url + "/" + rtmp_live
+if action[0] == "play":
+    roomId = args.get('room_id', "0")
+    videoUrl = realurl.get_real_url(roomId)
+
+#    data = api.loadRoom(roomId[0])  # helper.request("room/" + roomId[0])
+#    rtmp_url = data["rtmp_url"]
+#    rtmp_live = data["rtmp_live"]
+#    videoUrl = rtmp_url + "/" + rtmp_live
     #print "item:", videoUrl
 
     item = xbmcgui.ListItem("Test")

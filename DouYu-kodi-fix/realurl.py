@@ -1,8 +1,10 @@
 import requests
 import re
-import execjs
 import time
 import hashlib
+import sys
+sys.path.append("lib")
+import execjs
 
 
 def get_tt():
@@ -134,7 +136,7 @@ def get_url_from_js(rid):
 
 
 #rid = input('input room id:\n')
-#real_url = get_real_url(rid)
-#print('address:\n' + real_url)
+real_url = get_real_url(655622)
+print('address:\n' + real_url)
 
 # print(get_url_from_js('85894'))

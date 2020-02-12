@@ -4,11 +4,11 @@
   version="3.0"
   provider-name="heifeng">
   <requires>
-    <import addon="xbmc.python" version="2.24.0"/>
-    <import addon="script.module.requests" version="2.9.1"/>
+    <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="script.module.requests" version="2.22.0"/>
   </requires>
   <extension point="xbmc.python.pluginsource" library="douyutv.py">
-  <provides>video</provides>
+    <provides>video</provides>
   </extension>
   <extension point="xbmc.addon.metadata">
     <platform>all</platform>

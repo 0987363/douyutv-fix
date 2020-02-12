@@ -11,17 +11,17 @@ class DouyuAPI(APIHelper.APIHelper):
 
     def loadCategory(self):
         print "start load category"
-        return self.request("game")
+        return self.request("getColumnList")
 
-    def loadRooms(self, cateId, offset=0, limit=12):
-        print "start load rooms"
+    def loadSubLive(self, cateId, offset=0, limit=12):
+        print "start load sub channel live"
         return self.request("live/" + cateId, {"offset": str(offset), "limit": str(limit)})
 
-    def loadRoom(self,roomId):
-        print "start load rom"
-        return self.request("room/" + roomId)
+    def loadSubCategory(self, subId):
+        print "start load sub category"
+        return self.request("getColumnDetail" + {"shortName": subId})
 
     def loadLive(self,offset=0,limit=12):
-        print "start load live"
+        print "start load all live"
         return self.request("live", {"offset": str(offset), "limit": str(limit)})
 

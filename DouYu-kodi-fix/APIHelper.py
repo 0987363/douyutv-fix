@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # 斗鱼接口
 import urllib2
+import urllib
 import json
 import md5
 import time
@@ -17,16 +18,15 @@ class APIHelper:
         return m.hexdigest()  
 
     def request(self, action, param=None):
-        t = str(int(time.time()))
-
         reqUrl = self.baseUrl + action
         if param != None:
-            for k, v in enumerate(param):
-                reqUrl = reqUrl + "&" + v + "=" + param[v]
+            reqUrl = reqUrl + "?" + urllib.urlencode(param)
         print "requrl:" + reqUrl
 
         try:
-            response = urllib2.urlopen(reqUrl, timeout=10).read()
+            header = {"User-Agent" : "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0;"}
+            request = urllib2.Request(reqUrl, headers = header)
+            response = urllib2.urlopen(request, timeout=10).read()
             jsonObject = json.loads(response)
             data = jsonObject["data"]
             return data
