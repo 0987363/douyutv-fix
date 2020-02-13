@@ -8,9 +8,9 @@ import xbmcgui
 import realurl
 
 try:
-    from urllib.parse import urlparse, urlencode, unquote
+    from urllib.parse import parse_qs, urlencode, unquote
 except ImportError:
-    import urlparse
+    from urlparse import parse_qs
     from urllib import urlencode
     from urllib import unquote
 
@@ -18,7 +18,7 @@ except ImportError:
 
 base_url = sys.argv[0]
 handle = int(sys.argv[1])
-args = urlparse.parse_qs(sys.argv[2][1:])
+args = parse_qs(sys.argv[2][1:])
 api = DouyuAPI.DouyuAPI()
 
 action = args.get('action', None)
