@@ -2,32 +2,29 @@
 # douyutv.py
 import sys
 
-import urllib
 import DouyuAPI
 import xbmcplugin
 import xbmcgui
 import realurl
-try:
-    from urllib.parse import urlparse
-except ImportError:
-    from urlparse import urlparse
 
 try:
-    from urllib.parse import parse_qs
+    from urllib.parse import urlparse, urlencode, unquote
 except ImportError:
-    from urlparse import parse_qs
+    import urlparse
+    from urllib import urlencode
+    from urllib import unquote
 
 
 
 base_url = sys.argv[0]
 handle = int(sys.argv[1])
-args = parse_qs(sys.argv[2][1:])
+args = urlparse.parse_qs(sys.argv[2][1:])
 api = DouyuAPI.DouyuAPI()
 
 action = args.get('action', None)
 
 def build_url(query):
-    return base_url + '?' + urllib.urlencode(query)
+    return base_url + '?' + urlencode(query)
 
 
 def onControl(self, control):
@@ -66,7 +63,7 @@ if action[0] == "live":
 
     for game in data2:
         url = build_url({"action": "play", "room_id": game["room_id"], "room_name": game["room_name"].encode('utf-8'), "nickname": game["nickname"].encode('utf-8')})
-        listitem = xbmcgui.ListItem(label = urllib.unquote(game["game_name"]) + " - " + urllib.unquote(game["nickname"]) + " - " + urllib.unquote(game["room_name"]), iconImage=game["room_src"], thumbnailImage=game["room_src"], path=url)
+        listitem = xbmcgui.ListItem(label = unquote(game["game_name"]) + " - " + unquote(game["nickname"]) + " - " + unquote(game["room_name"]), iconImage=game["room_src"], thumbnailImage=game["room_src"], path=url)
         xbmcplugin.addDirectoryItem(handle, url, listitem)
 
     url = build_url({"action": "live", "offset": int(o + limit)})

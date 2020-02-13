@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
-import urllib
 import requests
-#import json
-#import time
 
+try:
+    from urllib.parse import urlencode
+except ImportError:
+    from urllib import urlencode
 
 class APIHelper:
     def __init__(self):
@@ -12,7 +13,7 @@ class APIHelper:
     def request(self, action, param=None):
         reqUrl = self.baseUrl + action
         if param != None:
-            reqUrl = reqUrl + "?" + urllib.urlencode(param)
+            reqUrl = reqUrl + "?" + urlencode(param)
 
         header = {
             "User-Agent" : "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0;",
