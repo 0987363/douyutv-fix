@@ -1,13 +1,8 @@
 ## 斗鱼直播 for XBMC
 ================
 
-##### install:
-```
-1.download requests, and install it
-http://mirrors.kodi.tv/addons/leia/script.module.requests/
-2.download douyutv-fix-v3.0.zip, and install it
-https://github.com/0987363/douyutv-fix/releases     (download *.zip)
-```
+v3.3
+add kodi v19 support
 
 v3.0
 fixed new auth player, thanks https://github.com/wbt5/real-url
