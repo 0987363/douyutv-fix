@@ -1,9 +1,14 @@
 ## 斗鱼直播 for XBMC
 ================
 
-Important: Need install node or other javascript runtime to host.
+### Important: 
 ```
-Example in coreelec:
+1. Install node or other javascript runtime to host system. 
+2. Add EXECJS_RUNTIME environment to system.
+```
+
+#### Example in coreelec:
+```
 1. install Entware
     login to ssh, and run: installentware
 2. install node
@@ -15,7 +20,7 @@ Example in coreelec:
 4. reboot
 ```
 
-Execjs support javascript runtime:
+#### Execjs support javascript runtime:
 ```
 register(runtime_names.PyV8,           pyv8runtime.PyV8Runtime())
 register(runtime_names.Node,           external_runtime.node())
@@ -52,7 +57,7 @@ fixed play, code based on HexPang@github.com/HexPang/DouyuLiveForXBMC, thanks
 
 
 
-old version:
+### old version:
 
 说明
 ----------------
