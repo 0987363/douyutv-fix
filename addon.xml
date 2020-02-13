@@ -6,7 +6,6 @@
   <requires>
     <import addon="xbmc.python" version="2.7.0"/>
     <import addon="script.module.requests"/>
-    <import addon="script.module.urllib3"/>
   </requires>
   <extension point="xbmc.python.pluginsource" library="douyutv.py">
     <provides>video</provides>
