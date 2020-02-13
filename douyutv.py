@@ -6,12 +6,22 @@ import urllib
 import DouyuAPI
 import xbmcplugin
 import xbmcgui
-import urlparse
 import realurl
+try:
+    from urllib.parse import urlparse
+except ImportError:
+    from urlparse import urlparse
+
+try:
+    from urllib.parse import parse_qs
+except ImportError:
+    from urlparse import parse_qs
+
+
 
 base_url = sys.argv[0]
 handle = int(sys.argv[1])
-args = urlparse.parse_qs(sys.argv[2][1:])
+args = parse_qs(sys.argv[2][1:])
 api = DouyuAPI.DouyuAPI()
 
 action = args.get('action', None)
