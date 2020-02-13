@@ -27,14 +27,12 @@ def onControl(self, control):
 
 if action is None:
     url = build_url({"action": "live", "cate_id": "0"})
-    print "url:" + url
     listitem = xbmcgui.ListItem(" => 正在直播 <=")
     xbmcplugin.addDirectoryItem(handle, url, listitem, isFolder=True)
 
     data = api.loadCategory()
     for game in data:
         url = build_url({"action": "category", "short_name": game["short_name"], "cate_id":game["cate_id"]})
-        print "url:" + url
         listitem = xbmcgui.ListItem(label=game["cate_name"],path=url)
         xbmcplugin.addDirectoryItem(handle, url, listitem, isFolder=True)
     xbmcplugin.endOfDirectory(handle)
@@ -46,9 +44,6 @@ if action[0] == "live":
     offset = args.get('offset', "0")
     o = int(offset[0], 0)
     limit = 12
-
-    print "cattleid:",cateId[0]
-    print "tagid:", tagId[0]
 
     if cateId[0] != "0":
         data = api.loadFirstLive(cateId[0], o)
@@ -75,14 +70,12 @@ if action[0] == "category":
     shortName = args.get('short_name', "0")
 
     url = build_url({"action": "live", "cate_id": cateId[0]})
-    print "cat rooms url:" + url
     listitem = xbmcgui.ListItem(" => 正在直播 <=")
     xbmcplugin.addDirectoryItem(handle, url, listitem, isFolder=True)
 
     data = api.loadSubCategory(shortName[0])
     for game in data:
         url = build_url({"action": "live", "tag_id": game["tag_id"]})
-        print "sub rooms url:" + url
         listitem = xbmcgui.ListItem(label=game["tag_name"],path=url)
         xbmcplugin.addDirectoryItem(handle, url, listitem, isFolder=True)
     xbmcplugin.endOfDirectory(handle)

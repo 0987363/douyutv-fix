@@ -17,10 +17,7 @@ def get_homejs(rid):
     room_url = 'https://m.douyu.com/' + rid
     response = requests.get(url=room_url)
     pattern_real_rid = r'"rid":(\d{1,7})'
-    print "request url:", room_url
-    print "request response:", response.text.encode('utf-8')
     results = re.findall(pattern_real_rid, response.text, re.I)
-    print "search pattern reasult:", results
     real_rid = results[0]
     if real_rid != rid:
         room_url = 'https://m.douyu.com/' + real_rid
