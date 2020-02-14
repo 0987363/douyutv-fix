@@ -4,34 +4,21 @@
 ### Important: 
 ```
 1. Install node or other javascript runtime to host system. 
-2. Add EXECJS_RUNTIME environment to system.
+2. If use libreelec or coreelec, you need append path.
 ```
 
-#### Example in coreelec:
+#### Example in libreelec or coreelec:
 ```
 1. install Entware
     login to ssh, and run: installentware
 2. install node
     login to ssh, and run: opkg update; opkg install node
-3. add EXECJS_RUNTIME to kodi
-    a. mkdir -p /storage/.kodi/addons/node.js/profile.d
-    b. cd /storage/.kodi/addons/node.js
-    c. echo "export EXECJS_RUNTIME=/opt/bin/node" >profile.d/node.js.profile
+3. append path 
+    a. mkdir -p /storage/.kodi/addons/node.js/bin
+    b. cd /storage/.kodi/addons/node.js/bin
+    c. ln -s /opt/bin/node .
 4. reboot
 ```
-
-#### Execjs support javascript runtime:
-```
-register(runtime_names.PyV8,           pyv8runtime.PyV8Runtime())
-register(runtime_names.Node,           external_runtime.node())
-register(runtime_names.JavaScriptCore, external_runtime.jsc())
-register(runtime_names.SpiderMonkey,   external_runtime.spidermonkey())
-register(runtime_names.JScript,        external_runtime.jscript())
-register(runtime_names.PhantomJS,      external_runtime.phantomjs())
-register(runtime_names.SlimerJS,       external_runtime.slimerjs())
-register(runtime_names.Nashorn,        external_runtime.nashorn())
-```
-
 
 v3.3
 add kodi v19 support
