@@ -66,7 +66,7 @@ if action[0] == "live":
         listitem = xbmcgui.ListItem(label = unquote(game["game_name"]) + " - " + unquote(game["nickname"]) + " - " + unquote(game["room_name"]), iconImage=game["room_src"], thumbnailImage=game["room_src"], path=url)
         xbmcplugin.addDirectoryItem(handle, url, listitem)
 
-    url = build_url({"action": "live", "offset": int(o + limit)})
+    url = build_url({"action": "live", "cate_id": cateId[0], "tag_id": tagId[0],"offset": int(o + limit)})
     listitem = xbmcgui.ListItem(label="下一页", path=url)
     xbmcplugin.addDirectoryItem(handle, url, listitem, isFolder=True)
     xbmcplugin.endOfDirectory(handle)
