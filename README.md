@@ -1,4 +1,4 @@
-## 斗鱼直播 for XBMC
+## 斗鱼直播 for Kodi
 ================
 
 ### Important: 
