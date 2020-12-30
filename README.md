@@ -5,9 +5,9 @@
 ```
 1. deploy docker in any server, example nas or vps
     docker run -it -p 8080:80 heifeng/media-agent 
-2. download douyutv-fix from
+2. download latest zip from
     https://github.com/0987363/douyutv-fix/releases
-3. unzip douyutv-fix.zip
+3. unzip zip file
     modify APIHelper.py, update self.baseUrl="http://127.0.0.1:8080/v1/douyu" to your api service address
 4. zip douyutv-fix.zip
 5. install douyutv-fix.zip
