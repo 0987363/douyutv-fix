@@ -7,12 +7,7 @@ import xbmcplugin
 import xbmcgui
 import realurl
 
-try:
-    from urllib.parse import parse_qs, urlencode, unquote
-except ImportError:
-    from urlparse import parse_qs
-    from urllib import urlencode
-    from urllib import unquote
+from urllib.parse import parse_qs, urlencode, unquote
 
 
 
@@ -40,7 +35,7 @@ if action is None:
     data = api.loadCategory()
     for game in data:
         url = build_url({"action": "category", "short_name": game["short_name"], "cate_id":game["cate_id"]})
-        listitem = xbmcgui.ListItem(label=game["cate_name"],path=url)
+        listitem = xbmcgui.ListItem(label=game["cate_name"], path=url)
         xbmcplugin.addDirectoryItem(handle, url, listitem, isFolder=True)
     xbmcplugin.endOfDirectory(handle)
     exit(0)
@@ -53,11 +48,11 @@ if action[0] == "live":
     limit = 12
 
     if cateId[0] != "0":
-        data = api.loadFirstLive(cateId[0], o)
+        data = api.loadCateRoom(cateId[0], o)
     elif tagId[0] != "0":
-        data = api.loadSecendLive(tagId[0], o)
+        data = api.loadTagRoom(tagId[0], o)
     else:
-        data = api.loadLive(o)
+        data = api.loadRoom(o)
 
     data2 = sorted(data, key=lambda k: k['online'], reverse=True)
 
@@ -83,7 +78,7 @@ if action[0] == "category":
     data = api.loadSubCategory(shortName[0])
     for game in data:
         url = build_url({"action": "live", "tag_id": game["tag_id"]})
-        listitem = xbmcgui.ListItem(label=game["tag_name"],path=url)
+        listitem = xbmcgui.ListItem(label=game["tag_name"], iconImage=game["pic_name"], thumbnailImage=game["pic_name"], path=url)
         xbmcplugin.addDirectoryItem(handle, url, listitem, isFolder=True)
     xbmcplugin.endOfDirectory(handle)
 
@@ -94,10 +89,11 @@ if action[0] == "play":
     roomName = args.get('room_name', "unknown")[0]
     nickname = args.get('nickname', "unknown")[0]
 
-    videoUrl = realurl.get_real_url(roomId)
+#    videoUrl = realurl.get_real_url(roomId)
+    data = api.loadSource(roomId)
 
     item = xbmcgui.ListItem("Test")
-    item.setProperty("PlayPath", videoUrl)
+    item.setProperty("PlayPath", data["source"])
     item.setInfo("video", {'title': nickname + " - " + roomName, 'writer': nickname})
-    player = xbmc.Player().play(videoUrl + "11223344", item)
+    player = xbmc.Player().play(data["source"] + "11223344", item)
 

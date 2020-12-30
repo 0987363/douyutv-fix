@@ -1,24 +1,22 @@
 ## 斗鱼直播 for Kodi
 ================
 
-### Important: 
+#### Install:
 ```
-1. Install node or other javascript runtime to host system. 
-2. If use libreelec or coreelec, you need append path.
+1. deploy docker in any server, example nas or vps
+    docker run -it -p 8080:80 heifeng/media-agent 
+2. download douyutv-fix from
+    https://github.com/0987363/douyutv-fix/releases
+3. unzip douyutv-fix.zip
+    modify APIHelper.py, update self.baseUrl="http://127.0.0.1:8080/v1/douyu" to your api service address
+4. zip douyutv-fix.zip
+5. install douyutv-fix.zip
 ```
 
-#### Example in libreelec or coreelec:
-```
-1. install Entware
-    login to ssh, and run: installentware
-2. install node
-    login to ssh, and run: opkg update; opkg install node
-3. append path 
-    a. mkdir -p /storage/.kodi/addons/node.js/bin
-    b. cd /storage/.kodi/addons/node.js/bin
-    c. ln -s /opt/bin/node .
-4. reboot
-```
++ **v4**
+  + 将real-url解析库移到服务器端, 方便使用
+  + 移除node,python依赖
+  + 需配合 https://github.com/0987363/agent 使用，也可使用docker部署 docker run -it -p 8080:80 heifeng/media-agent
 
 v3.3
 add kodi v19 support
@@ -44,7 +42,7 @@ fixed play, code based on HexPang@github.com/HexPang/DouyuLiveForXBMC, thanks
 
 
 
-### old version:
+### old version, thanks HexPang:
 
 说明
 ----------------

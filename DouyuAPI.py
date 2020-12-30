@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-__author__ = 'hexpang'
 import APIHelper
 import random
 import os
@@ -10,18 +9,21 @@ class DouyuAPI(APIHelper.APIHelper):
         APIHelper.APIHelper.__init__(self)
 
     def loadCategory(self):
-        return self.request("getColumnList")
+        return self.request("/category/")
 
     def loadSubCategory(self, shortName):
-        return self.request("getColumnDetail", {"shortName": shortName})
+        return self.request("/category/short/" + shortName + "/sub")
 
-    def loadSecendLive(self, tagId, offset=0, limit=12):
-        return self.request("live/" + tagId, {"offset": str(offset), "limit": str(limit)})
+    def loadCateRoom(self, cateId, offset=0, limit=12):
+        return self.request("/room/category/" + cateId, {"offset": str(offset), "limit": str(limit)})
 
-    def loadFirstLive(self, cateId, offset=0, limit=12):
-        return self.request("getColumnRoom/" + cateId, {"offset": str(offset), "limit": str(limit)})
+    def loadTagRoom(self, tagID, offset=0, limit=12):
+        return self.request("/room/tag/" + tagID, {"offset": str(offset), "limit": str(limit)})
 
-    def loadLive(self,offset=0,limit=12):
-        return self.request("live", {"offset": str(offset), "limit": str(limit)})
+    def loadRoom(self,offset=0,limit=12):
+        return self.request("/room/", {"offset": str(offset), "limit": str(limit)})
+
+    def loadSource(self, roomID, offset=0,limit=12):
+        return self.request("/room/id/" + roomID, {"offset": str(offset), "limit": str(limit)})
 
 

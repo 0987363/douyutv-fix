@@ -1,27 +1,20 @@
 # -*- coding: utf-8 -*-
 import requests
 
-try:
-    from urllib.parse import urlencode
-except ImportError:
-    from urllib import urlencode
+from urllib.parse import urlencode
 
 class APIHelper:
     def __init__(self):
-        self.baseUrl = "http://capi.douyucdn.cn/api/v1/"
+        self.baseUrl = "http://127.0.0.1/v1/douyu"
+        #self.baseUrl = "https://douyu.home.coolhei.com:8008/v1/douyu"
 
     def request(self, action, param=None):
         reqUrl = self.baseUrl + action
         if param != None:
             reqUrl = reqUrl + "?" + urlencode(param)
 
-        header = {
-            "User-Agent" : "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0;",
-        }
-        response = requests.get(url=reqUrl, headers=header)
+        response = requests.get(reqUrl, timeout=5, verify=False)
         jsonObject = response.json()
 
-#        jsonObject = json.loads(response)
-        data = jsonObject["data"]
-        return data
+        return jsonObject
 
