@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 import requests
 
-from urllib.parse import urlencode
+try:
+    from urllib.parse import urlencode
+except ImportError:
+    from urllib import urlencode
 
 class APIHelper:
     def __init__(self):
         self.baseUrl = "http://127.0.0.1/v1/douyu"
-        #self.baseUrl = "https://douyu.home.coolhei.com:8008/v1/douyu"
 
     def request(self, action, param=None):
         reqUrl = self.baseUrl + action

@@ -5,10 +5,13 @@ import sys
 import DouyuAPI
 import xbmcplugin
 import xbmcgui
-import realurl
 
-from urllib.parse import parse_qs, urlencode, unquote
-
+try:
+    from urllib.parse import parse_qs, urlencode, unquote
+except ImportError:
+    from urlparse import parse_qs
+    from urllib import urlencode
+    from urllib import unquote
 
 
 base_url = sys.argv[0]
@@ -58,7 +61,7 @@ if action[0] == "live":
 
     for game in data2:
         url = build_url({"action": "play", "room_id": game["room_id"], "room_name": game["room_name"].encode('utf-8'), "nickname": game["nickname"].encode('utf-8')})
-        listitem = xbmcgui.ListItem(label = unquote(game["game_name"]) + " - " + unquote(game["nickname"]) + " - " + unquote(game["room_name"]), iconImage=game["room_src"], thumbnailImage=game["room_src"], path=url)
+        listitem = xbmcgui.ListItem(label = unquote(game["game_name"]) + " - " + unquote(game["nickname"]) + " - " + unquote(game["room_name"]), iconImage=game["pic_name"], thumbnailImage=game["pic_name"], path=url)
         xbmcplugin.addDirectoryItem(handle, url, listitem)
 
     url = build_url({"action": "live", "cate_id": cateId[0], "tag_id": tagId[0],"offset": int(o + limit)})

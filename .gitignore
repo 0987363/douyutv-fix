@@ -54,3 +54,5 @@ docs/_build/
 
 *.swp
 *.swo
+
+__pycache__
