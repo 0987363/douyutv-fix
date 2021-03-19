@@ -6,12 +6,9 @@ import DouyuAPI
 import xbmcplugin
 import xbmcgui
 
-try:
-    from urllib.parse import parse_qs, urlencode, unquote
-except ImportError:
-    from urlparse import parse_qs
-    from urllib import urlencode
-    from urllib import unquote
+from urllib.parse import urlencode, unquote, parse_qs
+import urllib3
+urllib3.disable_warnings()
 
 
 base_url = sys.argv[0]
@@ -61,7 +58,8 @@ if action[0] == "live":
 
     for game in data2:
         url = build_url({"action": "play", "room_id": game["room_id"], "room_name": game["room_name"].encode('utf-8'), "nickname": game["nickname"].encode('utf-8')})
-        listitem = xbmcgui.ListItem(label = unquote(game["game_name"]) + " - " + unquote(game["nickname"]) + " - " + unquote(game["room_name"]), iconImage=game["pic_name"], thumbnailImage=game["pic_name"], path=url)
+        listitem = xbmcgui.ListItem(label = unquote(game["game_name"]) + " - " + unquote(game["nickname"]) + " - " + unquote(game["room_name"]), path=url)
+        listitem.setArt({  "poster": game["pic_name"].rstrip("/dy1"), "thumb": game["pic_name"], })
         xbmcplugin.addDirectoryItem(handle, url, listitem)
 
     url = build_url({"action": "live", "cate_id": cateId[0], "tag_id": tagId[0],"offset": int(o + limit)})
@@ -81,7 +79,8 @@ if action[0] == "category":
     data = api.loadSubCategory(shortName[0])
     for game in data:
         url = build_url({"action": "live", "tag_id": game["tag_id"]})
-        listitem = xbmcgui.ListItem(label=game["tag_name"], iconImage=game["pic_name"], thumbnailImage=game["pic_name"], path=url)
+        listitem = xbmcgui.ListItem(label=game["tag_name"], path=url)
+        listitem.setArt({  "poster": game["pic_name"].rstrip("/dy1"), "thumb": game["pic_name"], })
         xbmcplugin.addDirectoryItem(handle, url, listitem, isFolder=True)
     xbmcplugin.endOfDirectory(handle)
 

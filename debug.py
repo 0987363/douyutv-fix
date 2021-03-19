@@ -6,7 +6,3 @@ helper = DouyuAPI.DouyuAPI()
 result = helper.loadCategory()
 print(result)
 
-
-
-
-
